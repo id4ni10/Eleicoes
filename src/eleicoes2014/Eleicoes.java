@@ -37,7 +37,10 @@ public class Eleicoes implements EventosDoRender, EventosDoTeclado {
 
         cenario.iniciarAnimacao();
         estudante.iniciarAnimacao();
-        new Dilma("cerberuscomplete.gif").iniciarAnimacao();
+        
+        Dilma d = new Dilma("dilma3.gif");
+        //d.addImagem("2", "dilma2.png");
+        d.iniciarAnimacao();
 
         WindowRender window = new WindowRender(this, this);
         window.setVisible(true);
@@ -78,12 +81,14 @@ public class Eleicoes implements EventosDoRender, EventosDoTeclado {
 
     @Override
     public void teclaDireita() {
-        cenario.direcao = 0;
+        //cenario.direcao = 0;
+        estudante.right();
     }
 
     @Override
     public void teclaEsquerda() {
-        cenario.direcao = 1;
+        //cenario.direcao = 1;
+        estudante.left();
     }
 
     @Override

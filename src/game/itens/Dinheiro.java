@@ -11,32 +11,22 @@ import engine.itens.Item;
  *
  * @author Danilo
  */
-public class Tomate extends Arma {
+public class Dinheiro extends Item{
 
-    public Tomate(String img, int x, int y) {
+    public Dinheiro(String img, int x, int y) {
         super(img, x, y);
-        setDano(3);
-        setDeslocamento(6);
     }
 
     @Override
     public void animar() {
-
         while (getX() > 0 && isVisible()) { //Enqaunto o tiro não chegar em cim ou acertar um inimigo
 
-            right();
-
-            Item i = GameController.getInstance().getColisaoItem(Dilma.class, this);
+            Item i = GameController.getInstance().getColisaoItem(Estudante.class, this);
 
             if (i != null) { //Verifica colisão com o inimigo
                 setVisible(false); //Apaga o tiro
-                //if (i.getClass().isInstance(Inimigo.class)) {
-                Dilma inimigo = ((Dilma) i);
-                inimigo.setHP(inimigo.getHP() - getDano());
-                //}
-
-                //i.setVisible(false);
             }
+
             pausar(20);
         }
         setVisible(false);

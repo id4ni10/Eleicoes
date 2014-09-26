@@ -10,22 +10,25 @@ import engine.itens.Item;
  *
  * @author Danilo
  */
-public class Dilma extends Item implements Inimigo {
-
-    public int HP = 100;
-    private String nome = "Dilma";
+public class Dilma extends Inimigo {
 
     public Dilma(String img) {
-        super(img,600, 100);
+        super(img, 600, 100);
+        setHP(30);
+        setNome("Dilma");
         setDeslocamento(1);
         iniciarAnimacao();
     }
 
     @Override
     public void animar() {
-        while (true) {
+        while (getHP() > 0) {
             left();
+            //changeImagem("2");
             pausar(100);
+            //changeImagem("DEFAULT");            
         }
+        new Dinheiro("dinheiro.png", getX(), getY()).iniciarAnimacao();
+        setVisible(false);
     }
 }
