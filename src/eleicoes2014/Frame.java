@@ -29,15 +29,27 @@ public class Frame extends JFrame {
     private Cenario cenario;
     private Estudante estudante;
 
-    public Frame() {
+    private Frame() {
         initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+     
     }
 
+        public static Frame getInstance() {
+        if (instance == null) {
+            instance = new Frame();
+        }
+        return instance;
+    }
+    
+    
     public void iniciar() {
 
+        
+        cenario = new Cenario(); 
+        estudante = new Estudante("cerberuscomplete.gif");
+        
         cenario.iniciarAnimacao();
         estudante.iniciarAnimacao();
 
@@ -55,7 +67,7 @@ public class Frame extends JFrame {
     }
 
     public JPanelRender getRenderGame() {
-        return (JPanelRender) renderGame;
+        return renderGame;
     }
 
     public void initComponents() {
