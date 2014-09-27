@@ -4,8 +4,6 @@
  */
 package game.itens;
 
-import engine.itens.Item;
-
 /**
  *
  * @author Danilo
@@ -28,7 +26,12 @@ public class Dilma extends Inimigo {
             pausar(100);
             //changeImagem("DEFAULT");            
         }
-        new Dinheiro("dinheiro.png", getX(), getY()).iniciarAnimacao();
+
         setVisible(false);
+    }
+
+    @Override
+    protected void morri() {
+        new Dinheiro("dinheiro.png", getX(), getY()).iniciarAnimacao();
     }
 }

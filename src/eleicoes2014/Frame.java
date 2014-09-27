@@ -4,7 +4,6 @@
  */
 package eleicoes2014;
 
-import engine.core.Game;
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
@@ -33,37 +32,28 @@ public class Frame extends JFrame {
         initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-     
+
     }
 
-        public static Frame getInstance() {
+    public static Frame getInstance() {
         if (instance == null) {
             instance = new Frame();
+            instance.iniciar();
         }
         return instance;
     }
-    
-    
+
     public void iniciar() {
 
-        
-        cenario = new Cenario(); 
+
+        cenario = new Cenario();
         estudante = new Estudante("cerberuscomplete.gif");
-        
+
         cenario.iniciarAnimacao();
         estudante.iniciarAnimacao();
 
         Dilma d = new Dilma("dilma3.gif");
-        //d.addImagem("2", "dilma2.png");
         d.iniciarAnimacao();
-
-        //WindowRender window = new WindowRender(this, this);
-        Frame frame = new Frame();
-        frame.setVisible(true);
-
-        Game.setRender(frame.getRenderGame());
-
-        Game.gameInit();
     }
 
     public JPanelRender getRenderGame() {

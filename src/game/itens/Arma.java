@@ -12,22 +12,39 @@ import engine.itens.Item;
  * @author Danilo
  */
 public abstract class Arma extends Item {
-    
-    private int dano;
-    
+
     public Arma(String img) {
         super(img);
+        addImagem("ATINGIU", "bomba2.png");
     }
-    
+
+    public abstract int getDano();
+
     public Arma(String img, int x, int y) {
         super(img, x, y);
     }
-    
-    public int getDano() {
-        return dano;
+
+    @Override
+    public void animar() {
+        while (getX() > 0 && isVisible()) {
+            right();
+            Inimigo i = (Inimigo) GameController.getInstance().getColisaoItem(Inimigo.class, this);
+
+            if (i != null) {
+                i.setHP(i.getHP() - getDano());
+                atingiu();
+            }
+            pausar(20);
+        }
+        atingiu();
     }
     
-    public void setDano(int dano) {
-        this.dano = dano;
+    
+    private void atingiu(){
+        System.out.println("Atingiu");
+        changeImagem("ATINGIU");
+        pausar(1000);
+        setVisible(false);
+        
     }
 }

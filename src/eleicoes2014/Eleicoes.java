@@ -23,25 +23,11 @@ public class Eleicoes {
     private Eleicoes() {
         //Game.ALTURA_TELA = 600;
         //Game.LARGURA_TELA = 600;
-
-        
     }
 
     public void iniciar() {
 
-        cenario = new Cenario(); //Cria o cenário de fundo animado
-        estudante = new Estudante("cerberuscomplete.gif");
-        
-        cenario.iniciarAnimacao();
-        estudante.iniciarAnimacao();
-
-        Dilma d = new Dilma("dilma3.gif");
-        //d.addImagem("2", "dilma2.png");
-        d.iniciarAnimacao();
-
-        //WindowRender window = new WindowRender(this, this);
         Frame frame = Frame.getInstance();
-        frame.iniciar();
         frame.setVisible(true);
 
         Game.setRender(frame.getRenderGame());

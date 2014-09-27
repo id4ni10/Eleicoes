@@ -68,7 +68,7 @@ public abstract class Aliado extends Item {
             case 3:
                 if (getDinamites() > 0) {
                     setDinamites(getDinamites() - 1);
-                    new Dinamite("dinamite.png", getX() + 24, getY() - 50).iniciarAnimacao();
+                    new Dinamite("bomba_anim.gif", getX() + 24, getY() - 50).iniciarAnimacao();
                 } else {
                     System.out.println("acabaram as dinamites");
                 }

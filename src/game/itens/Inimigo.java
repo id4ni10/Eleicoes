@@ -5,7 +5,6 @@
 package game.itens;
 
 import engine.itens.Item;
-import engine.itens.PosicaoRender;
 
 /**
  *
@@ -35,13 +34,17 @@ public abstract class Inimigo extends Item {
         super(img, x, y);
     }
 
-    
-    
     @Override
     public void animar() {
-        while (true) {
+        while (getHP() > 0) {
             left();
+            //changeImagem("2");
             pausar(100);
+            //changeImagem("DEFAULT");            
         }
+        setVisible(false);
+        this.morri();
     }
+
+    protected abstract void morri();
 }
