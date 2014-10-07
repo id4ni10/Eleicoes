@@ -52,7 +52,7 @@ public abstract class Aliado extends Item {
             case 1:
                 if (getBolasDePapel() > 0) {
                     setBolasDePapel(getBolasDePapel() - 1);
-                    new BolaDePapel("bala.jpg", getX() + 24, getY() - 50).iniciarAnimacao();
+                    new BolaDePapel("papel_animado.gif", getX() + 24, getY() - 50).iniciarAnimacao();
                 } else {
                     System.out.println("acabaram os papeis");
                 }
@@ -60,7 +60,7 @@ public abstract class Aliado extends Item {
             case 2:
                 if (getTomates() > 0) {
                     setTomates(getTomates() - 1);
-                    new Tomate("tomate.png", getX() + 24, getY() - 50).iniciarAnimacao();
+                    new Tomate("tomate_anim.gif", getX() + 24, getY() - 50).iniciarAnimacao();
                 } else {
                     System.out.println("acabaram os tomates");
                 }
@@ -68,7 +68,7 @@ public abstract class Aliado extends Item {
             case 3:
                 if (getDinamites() > 0) {
                     setDinamites(getDinamites() - 1);
-                    new Dinamite("bomba_anim.gif", getX() + 24, getY() - 50).iniciarAnimacao();
+                    new Dinamite("bomba_animada.gif", getX() + 24, getY() - 50).iniciarAnimacao();
                 } else {
                     System.out.println("acabaram as dinamites");
                 }

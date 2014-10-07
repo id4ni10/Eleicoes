@@ -25,8 +25,9 @@ public class Dinheiro extends Item{
 
             if (i != null) { //Verifica colisão com o inimigo
                 setVisible(false); //Apaga o tiro
+                GameController.getInstance().setFimJogo(true);
             }
-
+            
             pausar(20);
         }
         setVisible(false);

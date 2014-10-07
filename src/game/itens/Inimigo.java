@@ -4,6 +4,9 @@
  */
 package game.itens;
 
+import eleicoes2014.Frame;
+import engine.core.GameController;
+import engine.itens.ImagemItem;
 import engine.itens.Item;
 
 /**
@@ -40,10 +43,17 @@ public abstract class Inimigo extends Item {
             left();
             //changeImagem("2");
             pausar(100);
-            //changeImagem("DEFAULT");            
+            //changeImagem("DEFAULT");
+            Aliado i = (Aliado) GameController.getInstance().getColisaoItem(Aliado.class, this);
+
+            if (i != null) {
+                GameController.getInstance().setFimJogo(true);//Informa o fim do jogo
+                GameController.getInstance().addItem(new ImagemItem("game-over.jpg", 150, 150));
+                i.setVisible(false);//Apaga a nave
+            }
         }
         setVisible(false);
-        this.morri();
+        morri();
     }
 
     protected abstract void morri();

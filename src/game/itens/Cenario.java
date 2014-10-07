@@ -16,7 +16,7 @@ public class Cenario extends Item {
     public int direcao = 0;
 
     public Cenario() {
-        super("cidade_noite.jpg", 0, 0);
+        super("cenario_game_elevador_noite.png", 0, 0);
         setDeslocamento(1);
     }
 

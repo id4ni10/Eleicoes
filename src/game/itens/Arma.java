@@ -15,7 +15,7 @@ public abstract class Arma extends Item {
 
     public Arma(String img) {
         super(img);
-        addImagem("ATINGIU", "bomba2.png");
+        //addImagem("ATINGIU", "bomba2.png");
     }
 
     public abstract int getDano();
@@ -42,8 +42,8 @@ public abstract class Arma extends Item {
     
     private void atingiu(){
         System.out.println("Atingiu");
-        changeImagem("ATINGIU");
-        pausar(1000);
+        //changeImagem("ATINGIU");
+        //pausar(1000);
         setVisible(false);
         
     }

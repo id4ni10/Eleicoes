@@ -7,9 +7,7 @@ package eleicoes2014;
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
-import game.itens.Cenario;
-import game.itens.Dilma;
-import game.itens.Estudante;
+import game.itens.*;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -52,15 +50,17 @@ public class Frame extends JFrame {
         cenario.iniciarAnimacao();
         estudante.iniciarAnimacao();
 
-        Dilma d = new Dilma("dilma3.gif");
-        d.iniciarAnimacao();
+        new Dilma("dilma3.gif").iniciarAnimacao();
+        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
+        new Marina("marina.gif", 600, 200).iniciarAnimacao();
+        new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
     }
 
     public JPanelRender getRenderGame() {
         return renderGame;
     }
 
-    public void initComponents() {
+    public final void initComponents() {
         renderGame = new JPanelRender(this, new EvtTeclado(), new EvtRender());
         renderGame.setBorder(BorderFactory.createLineBorder(Color.red));
         renderGame.setBounds(50, 0, 750, 550);

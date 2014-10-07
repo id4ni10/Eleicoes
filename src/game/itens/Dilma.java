@@ -11,27 +11,14 @@ package game.itens;
 public class Dilma extends Inimigo {
 
     public Dilma(String img) {
-        super(img, 600, 100);
+        super(img, 800, 350);
         setHP(30);
         setNome("Dilma");
-        setDeslocamento(1);
-        iniciarAnimacao();
-    }
-
-    @Override
-    public void animar() {
-        while (getHP() > 0) {
-            left();
-            //changeImagem("2");
-            pausar(100);
-            //changeImagem("DEFAULT");            
-        }
-
-        setVisible(false);
+        setDeslocamento(2);
     }
 
     @Override
     protected void morri() {
-        new Dinheiro("dinheiro.png", getX(), getY()).iniciarAnimacao();
+        new Dinheiro("dinheiro.gif", getX(), getY()).iniciarAnimacao();
     }
 }

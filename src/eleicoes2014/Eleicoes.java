@@ -6,7 +6,6 @@ package eleicoes2014;
 
 import engine.core.Game;
 import game.itens.Cenario;
-import game.itens.Dilma;
 import game.itens.Estudante;
 
 /**
