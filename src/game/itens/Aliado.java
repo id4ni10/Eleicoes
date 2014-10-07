@@ -60,7 +60,7 @@ public abstract class Aliado extends Item {
             case 2:
                 if (getTomates() > 0) {
                     setTomates(getTomates() - 1);
-                    new Tomate("tomate_anim.gif", getX() + 24, getY() - 50).iniciarAnimacao();
+                    new Tomate("tomate_animado.gif", getX() + 24, getY() - 50).iniciarAnimacao();
                 } else {
                     System.out.println("acabaram os tomates");
                 }
