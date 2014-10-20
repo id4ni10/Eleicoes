@@ -5,8 +5,6 @@
 package eleicoes2014;
 
 import engine.core.Game;
-import game.itens.Cenario;
-import game.itens.Estudante;
 
 /**
  *
@@ -14,10 +12,7 @@ import game.itens.Estudante;
  */
 public class Eleicoes {
 
-    private int arma = 1;
     private static Eleicoes instance;
-    private Cenario cenario;
-    private Estudante estudante;
 
     private Eleicoes() {
         //Game.ALTURA_TELA = 600;
@@ -25,12 +20,10 @@ public class Eleicoes {
     }
 
     public void iniciar() {
-
+       
         Frame frame = Frame.getInstance();
         frame.setVisible(true);
-
         Game.setRender(frame.getRenderGame());
-
         Game.gameInit();
     }
 

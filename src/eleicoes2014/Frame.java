@@ -9,9 +9,7 @@ import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
 import game.itens.*;
 import java.awt.Color;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -19,18 +17,18 @@ import javax.swing.JPanel;
  */
 public class Frame extends JFrame {
 
-    private JPanel options;
+    private JPanel[] options;
     private JPanelRender renderGame;
     private int arma = 1;
     private static Frame instance;
     private Cenario cenario;
     private Estudante estudante;
+    private Aliado aliado;
 
     private Frame() {
         initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
     }
 
     public static Frame getInstance() {
@@ -61,18 +59,32 @@ public class Frame extends JFrame {
     }
 
     public final void initComponents() {
+
+        options = new JPanel[3];
+
         renderGame = new JPanelRender(this, new EvtTeclado(), new EvtRender());
         renderGame.setBorder(BorderFactory.createLineBorder(Color.red));
-        renderGame.setBounds(50, 0, 750, 550);
+        renderGame.setBounds(80, 0, 750, 550);
 
-        options = new JPanel();
-        options.setBounds(0, 0, 50, 50);
-        options.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        options[0] = new JPanel();
+        options[0].setBounds(0, 150, 80, 50);
+        options[0].setBorder(BorderFactory.createTitledBorder("B. de papel"));
+        //options[0].add(new JLabel());
+
+        options[1] = new JPanel();
+        options[1].setBounds(0, 200, 80, 50);
+        options[1].setBorder(BorderFactory.createTitledBorder("Tomates"));
+
+        options[2] = new JPanel();
+        options[2].setBounds(0, 250, 80, 50);
+        options[2].setBorder(BorderFactory.createTitledBorder("Bombas"));
 
         JPanel pnl = new JPanel(null);
-        pnl.add(options);
-
+        pnl.add(options[0]);
+        pnl.add(options[1]);
+        pnl.add(options[2]);
         pnl.add(renderGame);
+
 
         setContentPane(pnl);
     }

@@ -4,7 +4,6 @@
  */
 package game.itens;
 
-import engine.core.GameController;
 import engine.itens.Item;
 
 /**
