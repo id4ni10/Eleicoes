@@ -26,7 +26,7 @@ public class Frame extends JFrame {
     private Aliado aliado;
 
     private Frame() {
-        initComponents();
+        //initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -39,12 +39,15 @@ public class Frame extends JFrame {
         return instance;
     }
 
+    public JPanel[] getOptions() {
+        return options;
+    }
+
     public void iniciar() {
-
-
+        
         cenario = new Cenario();
-        estudante = new Estudante("cerberuscomplete.gif");
-
+        estudante = new Estudante("estudante_animado.gif");
+        initComponents();
         cenario.iniciarAnimacao();
         estudante.iniciarAnimacao();
 
@@ -69,15 +72,17 @@ public class Frame extends JFrame {
         options[0] = new JPanel();
         options[0].setBounds(0, 150, 80, 50);
         options[0].setBorder(BorderFactory.createTitledBorder("B. de papel"));
-        //options[0].add(new JLabel());
+        options[0].add(new JLabel(estudante.getBolasDePapel() + ""));
 
         options[1] = new JPanel();
         options[1].setBounds(0, 200, 80, 50);
         options[1].setBorder(BorderFactory.createTitledBorder("Tomates"));
+        options[1].add(new JLabel(estudante.getTomates() + ""));
 
         options[2] = new JPanel();
         options[2].setBounds(0, 250, 80, 50);
         options[2].setBorder(BorderFactory.createTitledBorder("Bombas"));
+        options[2].add(new JLabel(estudante.getDinamites() + ""));
 
         JPanel pnl = new JPanel(null);
         pnl.add(options[0]);
