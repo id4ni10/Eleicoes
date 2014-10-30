@@ -11,7 +11,7 @@ import engine.itens.Item;
  *
  * @author Danilo
  */
-public class Dinheiro extends Item{
+public class Dinheiro extends Item {
 
     public Dinheiro(String img, int x, int y) {
         super(img, x, y);
@@ -26,9 +26,8 @@ public class Dinheiro extends Item{
 
             if (i != null) { //Verifica colisão com o inimigo
                 setVisible(false); //Apaga o tiro
-                GameController.getInstance().setFimJogo(true);
             }
-            
+
             pausar(20);
         }
         setVisible(false);

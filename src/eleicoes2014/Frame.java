@@ -4,11 +4,13 @@
  */
 package eleicoes2014;
 
+import engine.core.GameController;
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
 import game.itens.*;
 import java.awt.Color;
+import java.util.Random;
 import javax.swing.*;
 
 /**
@@ -44,7 +46,7 @@ public class Frame extends JFrame {
     }
 
     public void iniciar() {
-        
+
         cenario = new Cenario();
         estudante = new Estudante("estudante_animado.gif");
         initComponents();
@@ -54,7 +56,27 @@ public class Frame extends JFrame {
         new Dilma("dilma3.gif").iniciarAnimacao();
         new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
         new Marina("marina.gif", 600, 200).iniciarAnimacao();
-        new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
+        //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
+        criaInimigos();
+    }
+
+    public void criaInimigos() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Random r = new Random();                    
+
+                    while (!GameController.getInstance().fimjogo) {
+                        new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
+                        Thread.sleep(8000);
+                    }
+                } catch (InterruptedException ex) {
+                    System.out.println("Erro ao criar inimigo");
+                }
+            }
+        }).start();
     }
 
     public JPanelRender getRenderGame() {
