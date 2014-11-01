@@ -4,9 +4,8 @@
  */
 package game.itens;
 
-import eleicoes2014.Frame;
+import eleicoes2014.ImagemItem;
 import engine.core.GameController;
-import engine.itens.ImagemItem;
 import engine.itens.Item;
 
 /**
