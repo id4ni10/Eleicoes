@@ -10,6 +10,8 @@ import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
 import game.itens.*;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javax.swing.*;
 
@@ -26,11 +28,23 @@ public class Frame extends JFrame {
     private Cenario cenario;
     private Estudante estudante;
     private Aliado aliado;
+    private int fase = 0;
+    private List<Cenario> cenarios;
+    private Thread inimigos;
 
     private Frame() {
         //initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public void fimFase() {
+        fase += 1;
+
+        GameController.getInstance().delItens();
+        cenario.setVisible(false);
+        estudante.setVisible(false);
+     
     }
 
     public static Frame getInstance() {
@@ -47,26 +61,35 @@ public class Frame extends JFrame {
 
     public void iniciar() {
 
-        cenario = new Cenario();
+        cenarios = this.createCenarios();
+        iniciarFase();
+    }
+
+    public void iniciarFase() {
+        cenario = cenarios.get(fase);
+
         estudante = new Estudante("estudante_animado.gif");
         initComponents();
+
         cenario.iniciarAnimacao();
+
         estudante.iniciarAnimacao();
 
         new Dilma("dilma3.gif").iniciarAnimacao();
-        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
-        new Marina("marina.gif", 600, 200).iniciarAnimacao();
+//        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
+        //new Marina("marina.gif", 600, 200).iniciarAnimacao();
         //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
         criaInimigos();
+
     }
 
     public void criaInimigos() {
-        new Thread(new Runnable() {
+        inimigos = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    Random r = new Random();                    
+                    Random r = new Random();
 
                     while (!GameController.getInstance().fimjogo) {
                         new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
@@ -76,7 +99,9 @@ public class Frame extends JFrame {
                     System.out.println("Erro ao criar inimigo");
                 }
             }
-        }).start();
+        });
+
+        inimigos.start();
     }
 
     public JPanelRender getRenderGame() {
@@ -114,6 +139,18 @@ public class Frame extends JFrame {
 
 
         setContentPane(pnl);
+    }
+
+    private List<Cenario> createCenarios() {
+        List<Cenario> cenarios = new ArrayList<>();
+        cenarios.add(new Cenario("cenario_game_elevador_noite.png", 1));
+        cenarios.add(new Cenario("cidade_manha_estendido.png", 2));
+        cenarios.add(new Cenario("Cristocompleto.png", 3));
+        return cenarios;
+    }
+
+    private Object getInimigos() {
+        return inimigos;
     }
 
     private class EvtTeclado implements EventosDoTeclado {
@@ -173,11 +210,16 @@ public class Frame extends JFrame {
     private class EvtRender implements EventosDoRender {
 
         @Override
-        public void depoisPintar() {
+        public void antesPintar() {
+            Frame.getInstance().getInimigos().criaInimigo(false);
         }
 
         @Override
-        public void antesPintar() {
+        public void depoisPintar() {
+            Frame.getInstance().getInimigos().criaInimigo(true);
         }
+
+        
+        
     }
 }

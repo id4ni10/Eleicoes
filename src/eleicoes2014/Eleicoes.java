@@ -28,8 +28,11 @@ public class Eleicoes {
     public void iniciar() {
 
         Frame frame = Frame.getInstance();
+        
+        
+        
+        
         frame.setVisible(true);
-
         //Game.setRender(frame.getRenderGame());
         //Game.gameInit();
     }
