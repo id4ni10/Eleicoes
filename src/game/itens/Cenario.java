@@ -12,8 +12,7 @@ import engine.itens.Item;
  */
 public class Cenario extends Item {
 
-    public int direcao = 0;
-   
+    private int direcao = 0;
 
     public Cenario(String img, int deslocamento) {
         super(img, 0, 0);
@@ -28,16 +27,9 @@ public class Cenario extends Item {
     @Override
     public void animar() {
         while (true) { //Enquanto tiver cenário
-            //Cenário vai descendo
-            if (direcao == 0) {
-                left();
-            } else {
-                right();
-            }
+            left();
             //Tempo para deslocamento do cenário
             pausar(100);
         }
-        //if (!GameController.getInstance().isFimJogo()) { //Se o jogo ainda não chegou ao fim
-        //  GameController.getInstance().setFimJogo(true);
     }
 }

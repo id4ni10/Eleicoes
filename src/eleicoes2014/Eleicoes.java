@@ -8,6 +8,7 @@ import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
 import engine.itens.Item;
 import engine.renders.JPanelRender;
+import game.itens.Cenario;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,11 +36,11 @@ public class Eleicoes {
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(0, 0, 800, 600);
+        
         frame.setLayout(null);
 
         JPanelRender render = new JPanelRender(frame, new EvtTeclado(), new EvtRender());
-        render.setBounds(0, 0, 800, 600);
+        
         render.setLayout(null);
         render.setBorder(BorderFactory.createLineBorder(Color.red));
         JPanel painel = new JPanel(null);
@@ -47,16 +48,19 @@ public class Eleicoes {
 
         frame.setContentPane(painel);
 
-        new Item("choice.png", 0, 0) {
-        }.iniciarAnimacao();
-
-        ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("resource/dilma3.gif"));
-        JButton btnEstudante = new JButton(img);
-        btnEstudante.setBorder(BorderFactory.createEmptyBorder());
+        Cenario cenarioEscolha = new Cenario("escolha/telaEscolha.png",1);
+        cenarioEscolha.iniciarAnimacao();
         
-        btnEstudante.setBounds(336, 243, img.getIconWidth(), img.getIconHeight());
+        render.setBounds(0, 0, cenarioEscolha.getWidth(), cenarioEscolha.getHeight());
+        frame.setBounds(0, 0, cenarioEscolha.getWidth() - 5, cenarioEscolha.getHeight());
         
-        btnEstudante.addActionListener(new ActionListener() {
+        ImageIcon Escolha1Img = new ImageIcon(getClass().getClassLoader().getResource("resource/escolha/escolha1.png"));
+        JButton btnEscolha1 = new JButton(Escolha1Img);
+        btnEscolha1.setBorder(BorderFactory.createEmptyBorder());
+        
+        btnEscolha1.setBounds(10, 10, Escolha1Img.getIconWidth(), Escolha1Img.getIconHeight());
+        
+        btnEscolha1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ev) {
@@ -64,19 +68,34 @@ public class Eleicoes {
             }
         });
         
-//        JButton btnDonaDeCasa = new JButton(new ImageIcon(getClass().getClassLoader().getResource("resource/donadecasa.gif")));
-//        btnDonaDeCasa.setBounds(15, 80, 50, 50);
-//
-//        btnDonaDeCasa.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent ev) {
-//                
-//            }
-//        });
+        ImageIcon escolha2Img = new ImageIcon(getClass().getClassLoader().getResource("resource/escolha/escolha2.png"));
+        JButton btnEscolha2 = new JButton(escolha2Img);
+        btnEscolha2.setBounds(350, 200, escolha2Img.getIconWidth(), escolha2Img.getIconHeight());
+        btnEscolha2.setBorder(BorderFactory.createEmptyBorder());
 
-        render.add(btnEstudante);
-        //render.add(btnDonaDeCasa);
+        btnEscolha2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                
+            }
+        });
+        
+        ImageIcon imgEscolha3 = new ImageIcon(getClass().getClassLoader().getResource("resource/escolha/escolha3.png"));
+        JButton btEscolha3 = new JButton(imgEscolha3);
+        btEscolha3.setBounds(15, 80, imgEscolha3.getIconWidth(), imgEscolha3.getIconHeight());
+        btEscolha3.setBorder(BorderFactory.createEmptyBorder());
+        btEscolha3.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ev) {
+                
+            }
+        });
+
+        render.add(btnEscolha1);
+        render.add(btnEscolha2);
+        render.add(btEscolha3);
 
         frame.setVisible(true);
     }
