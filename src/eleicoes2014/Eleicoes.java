@@ -54,10 +54,7 @@ public class Eleicoes {
         JButton btnEstudante = new JButton(img);
         btnEstudante.setBorder(BorderFactory.createEmptyBorder());
         
-        //preciso posicionar estes botões ao centro.
-        //
         btnEstudante.setBounds(336, 243, img.getIconWidth(), img.getIconHeight());
-        //
         
         btnEstudante.addActionListener(new ActionListener() {
 
