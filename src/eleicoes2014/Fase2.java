@@ -58,7 +58,7 @@ public class Fase2 extends JFrame {
     }
 
     public void iniciar(String img, Estudante estudante) {
-        gerenciadorInimigo = new GerenciadorInimigos();
+        gerenciadorInimigo = new GerenciadorInimigos(15);
 
         System.out.println("Iniciando a fase: 2");
         cenario = new Cenario(img, 2);
