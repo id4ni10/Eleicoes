@@ -211,12 +211,12 @@ public class Frame extends JFrame {
 
         @Override
         public void antesPintar() {
-            Frame.getInstance().getInimigos().criaInimigo(false);
+            //Frame.getInstance().getInimigos().criaInimigo(false);
         }
 
         @Override
         public void depoisPintar() {
-            Frame.getInstance().getInimigos().criaInimigo(true);
+            //Frame.getInstance().getInimigos().criaInimigo(true);
         }
 
         
