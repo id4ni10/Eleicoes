@@ -29,12 +29,17 @@ public class GerenciadorInimigos {
     }
 
     public void criarInimigo() {
+        System.out.println("Criando o inimigo: "+ qtdInimigos + " Total: "+ totalInimigos);
 
-        if (criar || totalInimigos >= qtdInimigos) {
+        if (criar) {
             Random r = new Random();
             new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
             qtdInimigos ++;
         }
+    }
+
+    boolean isTerminou() {
+        return totalInimigos >= qtdInimigos;
     }
 
 }

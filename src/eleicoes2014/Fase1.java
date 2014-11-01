@@ -38,11 +38,9 @@ public class Fase1 extends JFrame {
     public void fimFase() {
         System.out.println("Chamado Fim Fase");
 
-        //cenario.fimFase();
         cenario.setVisible(false);
         estudante.setVisible(false);
         gerenciadorInimigo.criaInimigo(false);
-        GameController.getInstance().delItens();
     }
 
     public static Fase1 getInstance() {
@@ -56,13 +54,12 @@ public class Fase1 extends JFrame {
         return options;
     }
 
-    public void iniciar(String img) {
+    public void iniciar(String img, Estudante estudante) {
         gerenciadorInimigo = new GerenciadorInimigos(12);
-        
-        System.out.println("Iniciando a fase: 1");
-        cenario = new Cenario("cenario_game_elevador_noite.png", 1);
+        this.estudante = estudante;
 
-        estudante = new Estudante("estudante_animado.gif");
+        System.out.println("Iniciando a fase: 1");
+        cenario = new Cenario(img, 1);
 
         initComponents();
 
@@ -78,7 +75,6 @@ public class Fase1 extends JFrame {
         gerenciadorInimigo.criaInimigo(true);
     }
 
-
     public void criaInimigos() {
         new Thread(new Runnable() {
 
@@ -86,10 +82,12 @@ public class Fase1 extends JFrame {
             public void run() {
                 try {
 
-                    while (!GameController.getInstance().fimjogo) {
+                    while (!GameController.getInstance().fimjogo || !gerenciadorInimigo.isTerminou()) {
                         gerenciadorInimigo.criarInimigo();
                         Thread.sleep(8000);
                     }
+                    
+                    System.out.println("Terminei de criar os inimigos");
                 } catch (InterruptedException ex) {
                     System.out.println("Erro ao criar inimigo");
                 }
