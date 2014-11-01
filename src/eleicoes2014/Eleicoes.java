@@ -6,6 +6,7 @@ package eleicoes2014;
 
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
+import engine.itens.ImagemItem;
 import engine.itens.Item;
 import engine.renders.JPanelRender;
 import java.awt.Color;
@@ -28,13 +29,7 @@ public class Eleicoes {
     public void iniciar() {
 
         Frame frame = Frame.getInstance();
-        
-        
-        
-        
         frame.setVisible(true);
-        //Game.setRender(frame.getRenderGame());
-        //Game.gameInit();
     }
 
     public void configurar() {
@@ -46,6 +41,7 @@ public class Eleicoes {
 
         JPanelRender render = new JPanelRender(frame, new EvtTeclado(), new EvtRender());
         render.setBounds(0, 0, 800, 600);
+        render.setLayout(null);
         render.setBorder(BorderFactory.createLineBorder(Color.red));
         JPanel painel = new JPanel(null);
         painel.add(render);
@@ -55,20 +51,20 @@ public class Eleicoes {
         new Item("choice.png", 0, 0) {
         }.iniciarAnimacao();
 
-        JButton btnEstudante = new JButton(new ImageIcon(getClass().getClassLoader().getResource("resource/dilma3.gif")));
+        ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("resource/dilma3.gif"));
+        JButton btnEstudante = new JButton(img);
         btnEstudante.setBorder(BorderFactory.createEmptyBorder());
         
         //preciso posicionar estes botões ao centro.
         //
-        //btnEstudante.setBounds(x, y, width, height);
+        btnEstudante.setBounds(336, 243, img.getIconWidth(), img.getIconHeight());
         //
         
         btnEstudante.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ev) {
-                frame.setVisible(false);
-                iniciar();
+                iniciarJogo(1);
             }
         });
         
@@ -87,6 +83,11 @@ public class Eleicoes {
         //render.add(btnDonaDeCasa);
 
         frame.setVisible(true);
+    }
+    
+    public void iniciarJogo(int fase){
+        frame.setVisible(false);
+        iniciar();
     }
 
     public static Eleicoes getInstance() {

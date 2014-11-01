@@ -16,7 +16,7 @@ public class Estudante extends Aliado {
     public Estudante(String img) {
         super(img);
         setX(100);
-        setY(100);
+        setY(320);
         setDeslocamento(5);
     }
     

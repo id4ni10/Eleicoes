@@ -12,7 +12,6 @@ import game.itens.*;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.swing.*;
 
 /**
@@ -27,10 +26,10 @@ public class Frame extends JFrame {
     private static Frame instance;
     private Cenario cenario;
     private Estudante estudante;
-    private Aliado aliado;
     private int fase = 0;
     private List<Cenario> cenarios;
-    private Thread inimigos;
+
+    private GerenciadorInimigos gerenciadorInimigo;
 
     private Frame() {
         //initComponents();
@@ -39,12 +38,21 @@ public class Frame extends JFrame {
     }
 
     public void fimFase() {
+        System.out.println("Chamado Fim Fase");
         fase += 1;
 
-        GameController.getInstance().delItens();
+        cenario.fimFase();
         cenario.setVisible(false);
         estudante.setVisible(false);
-     
+        gerenciadorInimigo.criaInimigo(false);
+        GameController.getInstance().delItens();
+
+        if (fase == 3) {
+            GameController.getInstance().setFimJogo(true);
+        } else {
+            iniciarFase();
+        }
+
     }
 
     public static Frame getInstance() {
@@ -62,13 +70,17 @@ public class Frame extends JFrame {
     public void iniciar() {
 
         cenarios = this.createCenarios();
+        gerenciadorInimigo = new GerenciadorInimigos();
         iniciarFase();
+        criaInimigos();
     }
 
     public void iniciarFase() {
+        System.out.println("Iniciando a fase: " + fase);
         cenario = cenarios.get(fase);
 
         estudante = new Estudante("estudante_animado.gif");
+
         initComponents();
 
         cenario.iniciarAnimacao();
@@ -79,29 +91,28 @@ public class Frame extends JFrame {
 //        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
         //new Marina("marina.gif", 600, 200).iniciarAnimacao();
         //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
-        criaInimigos();
+
+        gerenciadorInimigo.criaInimigo(true);
 
     }
 
     public void criaInimigos() {
-        inimigos = new Thread(new Runnable() {
+        new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try {
-                    Random r = new Random();
 
                     while (!GameController.getInstance().fimjogo) {
-                        new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
+                        gerenciadorInimigo.criarInimigo();
                         Thread.sleep(8000);
                     }
                 } catch (InterruptedException ex) {
                     System.out.println("Erro ao criar inimigo");
                 }
             }
-        });
+        }).start();
 
-        inimigos.start();
     }
 
     public JPanelRender getRenderGame() {
@@ -137,7 +148,6 @@ public class Frame extends JFrame {
         pnl.add(options[2]);
         pnl.add(renderGame);
 
-
         setContentPane(pnl);
     }
 
@@ -147,10 +157,6 @@ public class Frame extends JFrame {
         cenarios.add(new Cenario("cidade_manha_estendido.png", 2));
         cenarios.add(new Cenario("Cristocompleto.png", 3));
         return cenarios;
-    }
-
-    private Object getInimigos() {
-        return inimigos;
     }
 
     private class EvtTeclado implements EventosDoTeclado {
@@ -173,24 +179,29 @@ public class Frame extends JFrame {
 
         @Override
         public void teclaDireita() {
-            //cenario.direcao = 0;
             estudante.right();
         }
 
         @Override
         public void teclaEsquerda() {
-            //cenario.direcao = 1;
             estudante.left();
         }
 
         @Override
         public void teclaCima() {
-            estudante.up();
+            System.out.println(estudante.getY());
+            if (estudante.getY() > 210) {
+                estudante.up();
+            }
+
         }
 
         @Override
         public void teclaBaixo() {
-            estudante.down();
+            System.out.println(estudante.getY());
+            if (estudante.getY() < 410) {
+                estudante.down();
+            }
         }
 
         @Override
@@ -211,15 +222,13 @@ public class Frame extends JFrame {
 
         @Override
         public void antesPintar() {
-            Frame.getInstance().getInimigos().criaInimigo(false);
+            gerenciadorInimigo.criaInimigo(false);
         }
 
         @Override
         public void depoisPintar() {
-            Frame.getInstance().getInimigos().criaInimigo(true);
+            gerenciadorInimigo.criaInimigo(true);
         }
 
-        
-        
     }
 }
