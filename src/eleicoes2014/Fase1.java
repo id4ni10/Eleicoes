@@ -42,7 +42,7 @@ public class Fase1 extends JFrame {
         cenario.setVisible(false);
         estudante.setVisible(false);
         gerenciadorInimigo.criaInimigo(false);
-        //GameController.getInstance().delItens();
+        GameController.getInstance().delItens();
     }
 
     public static Fase1 getInstance() {

@@ -42,7 +42,7 @@ public class Fase3 extends JFrame {
         cenario.setVisible(false);
         estudante.setVisible(false);
         gerenciadorInimigo.criaInimigo(false);
-        //GameController.getInstance().delItens();
+        GameController.getInstance().delItens();
     }
 
     public static Fase3 getInstance() {
@@ -69,7 +69,7 @@ public class Fase3 extends JFrame {
 
         cenario.iniciarAnimacao();
 
-        //estudante.iniciarAnimacao();
+        estudante.iniciarAnimacao();
 
         new Dilma("dilma3.gif").iniciarAnimacao();
         new Aecio("aecio.gif", 700, 250).iniciarAnimacao();

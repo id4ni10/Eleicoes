@@ -32,7 +32,7 @@ public class Eleicoes {
 
     public void iniciar(int fase, Estudante estudante) {
 
-        if (estudante == null) {
+        if (this.estudante == null) {
             this.estudante = estudante;
         }
 
@@ -43,11 +43,13 @@ public class Eleicoes {
                 fase1.setVisible(true);
                 break;
             case 2:
+                Fase1.getInstance().setVisible(false);
                 Fase2 fase2 = Fase2.getInstance();
                 fase2.iniciar("cidade_manha_estendido.png", this.estudante);
                 fase2.setVisible(true);
                 break;
             case 3:
+                Fase2.getInstance().setVisible(false);
                 Fase3 fase3 = Fase3.getInstance();
                 fase3.iniciar("cidade_manha_estendido.png", this.estudante);
                 fase3.setVisible(true);
