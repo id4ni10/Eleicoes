@@ -28,7 +28,6 @@ public class Frame extends JFrame {
     private Estudante estudante;
     private int fase = 0;
     private List<Cenario> cenarios;
-
     private GerenciadorInimigos gerenciadorInimigo;
 
     private Frame() {
@@ -41,7 +40,7 @@ public class Frame extends JFrame {
         System.out.println("Chamado Fim Fase");
         fase += 1;
 
-        cenario.fimFase();
+        //cenario.fimFase();
         cenario.setVisible(false);
         estudante.setVisible(false);
         gerenciadorInimigo.criaInimigo(false);
@@ -72,7 +71,7 @@ public class Frame extends JFrame {
         cenarios = this.createCenarios();
         gerenciadorInimigo = new GerenciadorInimigos();
         iniciarFase();
-        criaInimigos();
+        //criaInimigos();
     }
 
     public void iniciarFase() {
@@ -88,8 +87,8 @@ public class Frame extends JFrame {
         estudante.iniciarAnimacao();
 
         new Dilma("dilma3.gif").iniciarAnimacao();
-//        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
-        //new Marina("marina.gif", 600, 200).iniciarAnimacao();
+        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
+        new Marina("marina.gif", 600, 200).iniciarAnimacao();
         //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
 
         gerenciadorInimigo.criaInimigo(true);
@@ -229,6 +228,5 @@ public class Frame extends JFrame {
         public void depoisPintar() {
             gerenciadorInimigo.criaInimigo(true);
         }
-
     }
 }

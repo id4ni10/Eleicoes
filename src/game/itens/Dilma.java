@@ -4,7 +4,6 @@
  */
 package game.itens;
 
-import eleicoes2014.Frame;
 import engine.core.GameController;
 
 /**
@@ -24,7 +23,7 @@ public class Dilma extends Inimigo {
     protected void morri() {
         //new Dinheiro("dinheiro.gif", getX(), getY()).iniciarAnimacao();
         GameController.getInstance().setFimJogo(true);
-        Frame.getInstance().fimFase();
+        //Frame.getInstance().fimFase();
                 
     }
 }

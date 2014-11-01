@@ -6,7 +6,6 @@ package eleicoes2014;
 
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
-import engine.itens.ImagemItem;
 import engine.itens.Item;
 import engine.renders.JPanelRender;
 import java.awt.Color;
