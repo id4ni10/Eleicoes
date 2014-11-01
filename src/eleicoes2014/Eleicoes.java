@@ -25,27 +25,31 @@ public class Eleicoes {
     private static Eleicoes instance;
     private JFrame frame;
     private int fase = 1;
-    
+    private Estudante estudante;
 
     private Eleicoes() {
     }
 
-    public void iniciar(int fase) {
+    public void iniciar(int fase, Estudante estudante) {
+
+        if (estudante == null) {
+            this.estudante = estudante;
+        }
 
         switch (fase) {
             case 1:
                 Fase1 fase1 = Fase1.getInstance();
-                fase1.iniciar("cenario_game_elevador_noite.png");
+                fase1.iniciar("cenario_game_elevador_noite.png", this.estudante);
                 fase1.setVisible(true);
                 break;
             case 2:
                 Fase2 fase2 = Fase2.getInstance();
-                fase2.iniciar("cidade_manha_estendido.png");
+                fase2.iniciar("cidade_manha_estendido.png", this.estudante);
                 fase2.setVisible(true);
                 break;
             case 3:
                 Fase3 fase3 = Fase3.getInstance();
-                fase3.iniciar("cidade_manha_estendido.png");
+                fase3.iniciar("cidade_manha_estendido.png", this.estudante);
                 fase3.setVisible(true);
                 break;
         }
@@ -56,10 +60,10 @@ public class Eleicoes {
         final int ALTURA_BTN = 140;
         final int ENTRE_ESPACOS = 50;
         final int BORDA_INICIAL = 80;
-        
-        final Border bordaRealcada = BorderFactory.createLineBorder(Color.RED,5);
+
+        final Border bordaRealcada = BorderFactory.createLineBorder(Color.RED, 5);
         final Border border = BorderFactory.createEmptyBorder();
-                
+
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -73,31 +77,22 @@ public class Eleicoes {
 
         frame.setContentPane(painel);
 
-//<<<<<<< HEAD
-//        Cenario cenarioEscolha = new Cenario("escolha/telaEscolha.png", 1);
-//=======
-        Cenario cenarioEscolha = new Cenario("escolha/background.png",0);
-//>>>>>>> origin/master
+        Cenario cenarioEscolha = new Cenario("escolha/background.png", 0);
+
         cenarioEscolha.iniciarAnimacao();
 
         render.setBounds(0, 0, cenarioEscolha.getWidth(), cenarioEscolha.getHeight());
         frame.setBounds(0, 0, cenarioEscolha.getWidth() - 5, cenarioEscolha.getHeight());
 
         ImageIcon Escolha1Img = new ImageIcon(getClass().getClassLoader().getResource("resource/escolha/escolha1.png"));
-//<<<<<<< HEAD
-//        JButton btnEscolha1 = new JButton(Escolha1Img);
-//        btnEscolha1.setBorder(BorderFactory.createEmptyBorder());
-//
-//        btnEscolha1.setBounds(10, 10, Escolha1Img.getIconWidth(), Escolha1Img.getIconHeight());
-//
-//        btnEscolha1.addActionListener(new ActionListener() {
-//=======
+
         final JLabel btnEscolha1 = new JLabel(Escolha1Img);
         btnEscolha1.setBounds(BORDA_INICIAL, ALTURA_BTN, Escolha1Img.getIconWidth(), Escolha1Img.getIconHeight());
         btnEscolha1.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseReleased(MouseEvent e) {
-                Estudante estudante = new Estudante("personagens/Personagem1.png");
+                Estudante estudante = new Estudante("personagens/Personagem1.gif");
                 iniciarJogo(estudante);
             }
 
@@ -105,7 +100,6 @@ public class Eleicoes {
             public void mouseEntered(MouseEvent e) {
                 btnEscolha1.setBorder(bordaRealcada);
             }
-//>>>>>>> origin/master
 
             @Override
             public void mouseExited(MouseEvent e) {
@@ -119,24 +113,22 @@ public class Eleicoes {
         btnEscolha2.setBounds(x, ALTURA_BTN, escolha2Img.getIconWidth(), escolha2Img.getIconHeight());
 
         btnEscolha2.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseReleased(MouseEvent e) {
-                Estudante estudante = new Estudante("personagens/Personagem2.png");
+                Estudante estudante = new Estudante("personagens/Personagem2.gif");
                 iniciarJogo(estudante);
             }
-            
-             @Override
+
+            @Override
             public void mouseEntered(MouseEvent e) {
                 btnEscolha2.setBorder(bordaRealcada);
             }
 
             @Override
-//<<<<<<< HEAD
-  //          public void actionPerformed(ActionEvent ev) {
-//=======
             public void mouseExited(MouseEvent e) {
                 btnEscolha2.setBorder(border);
-//>>>>>>> origin/master
+
             }
         });
 
@@ -144,19 +136,15 @@ public class Eleicoes {
         final JLabel btEscolha3 = new JLabel(imgEscolha3);
         final int x2 = x + escolha2Img.getIconWidth() + ENTRE_ESPACOS;
         btEscolha3.setBounds(x2, ALTURA_BTN, imgEscolha3.getIconWidth(), imgEscolha3.getIconHeight());
-        btEscolha3.addMouseListener(new MouseAdapter(){
+        btEscolha3.addMouseListener(new MouseAdapter() {
 
             @Override
-//<<<<<<< HEAD
-//            public void actionPerformed(ActionEvent ev) {
-//=======
             public void mouseReleased(MouseEvent e) {
-                Estudante estudante = new Estudante("personagens/Personagem3.png");
+                Estudante estudante = new Estudante("personagens/Personagem3.gif");
                 iniciarJogo(estudante);
-//>>>>>>> origin/master
             }
-            
-             @Override
+
+            @Override
             public void mouseEntered(MouseEvent e) {
                 btEscolha3.setBorder(bordaRealcada);
             }
@@ -165,7 +153,6 @@ public class Eleicoes {
             public void mouseExited(MouseEvent e) {
                 btEscolha3.setBorder(border);
             }
-            
         });
 
         render.add(btnEscolha1);
@@ -174,16 +161,11 @@ public class Eleicoes {
 
         frame.setVisible(true);
     }
-//<<<<<<< HEAD
 
-    //public void iniciarJogo(int fase) {
-//=======
-    
-    
-    public void iniciarJogo(Estudante estudante){
-//>>>>>>> origin/master
+    public void iniciarJogo(Estudante estudante) {
+
         frame.setVisible(false);
-        iniciar(fase);
+        iniciar(fase, estudante);
     }
 
     public static Eleicoes getInstance() {
@@ -194,12 +176,12 @@ public class Eleicoes {
     }
 
     public void mudaFase() {
-        
+
         frame.setVisible(false);
 
         fase += 1;
         GameController.getInstance().setFimJogo(true);
-        iniciar(fase);
+        iniciar(fase, estudante);
     }
 
     private class EvtTeclado implements EventosDoTeclado {

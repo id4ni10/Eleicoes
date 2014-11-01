@@ -42,7 +42,7 @@ public class Fase2 extends JFrame {
         cenario.setVisible(false);
         estudante.setVisible(false);
         gerenciadorInimigo.criaInimigo(false);
-        GameController.getInstance().delItens();
+        //GameController.getInstance().delItens();
     }
 
     public static Fase2 getInstance() {
@@ -57,19 +57,19 @@ public class Fase2 extends JFrame {
         return options;
     }
 
-    public void iniciar(String img) {
+    public void iniciar(String img, Estudante estudante) {
         gerenciadorInimigo = new GerenciadorInimigos();
-        
+
         System.out.println("Iniciando a fase: 2");
         cenario = new Cenario(img, 2);
-
-        estudante = new Estudante("estudante_animado.gif");
+        this.estudante = estudante;
+        //estudante = new Estudante("estudante_animado.gif");
 
         initComponents();
 
         cenario.iniciarAnimacao();
 
-        estudante.iniciarAnimacao();
+//        estudante.iniciarAnimacao();
 
         new Dilma("dilma3.gif").iniciarAnimacao();
         new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
@@ -79,7 +79,6 @@ public class Fase2 extends JFrame {
         gerenciadorInimigo.criaInimigo(true);
         //criaInimigos();
     }
-
 
     public void criaInimigos() {
         new Thread(new Runnable() {
