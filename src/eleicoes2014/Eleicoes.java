@@ -6,13 +6,14 @@ package eleicoes2014;
 
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
-import engine.itens.Item;
 import engine.renders.JPanelRender;
 import game.itens.Cenario;
+import game.itens.Estudante;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 /**
  *
@@ -33,7 +34,14 @@ public class Eleicoes {
     }
 
     public void configurar() {
-
+        //final int ALTURA_BTN = 140;
+        final int ALTURA_BTN = 140;
+        final int ENTRE_ESPACOS = 50;
+        final int BORDA_INICIAL = 80;
+        
+        final Border bordaRealcada = BorderFactory.createLineBorder(Color.RED,5);
+        final Border border = BorderFactory.createEmptyBorder();
+                
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -42,55 +50,83 @@ public class Eleicoes {
         JPanelRender render = new JPanelRender(frame, new EvtTeclado(), new EvtRender());
         
         render.setLayout(null);
-        render.setBorder(BorderFactory.createLineBorder(Color.red));
         JPanel painel = new JPanel(null);
         painel.add(render);
 
         frame.setContentPane(painel);
 
-        Cenario cenarioEscolha = new Cenario("escolha/telaEscolha.png",1);
+        Cenario cenarioEscolha = new Cenario("escolha/background.png",0);
         cenarioEscolha.iniciarAnimacao();
         
         render.setBounds(0, 0, cenarioEscolha.getWidth(), cenarioEscolha.getHeight());
         frame.setBounds(0, 0, cenarioEscolha.getWidth() - 5, cenarioEscolha.getHeight());
         
         ImageIcon Escolha1Img = new ImageIcon(getClass().getClassLoader().getResource("resource/escolha/escolha1.png"));
-        JButton btnEscolha1 = new JButton(Escolha1Img);
-        btnEscolha1.setBorder(BorderFactory.createEmptyBorder());
-        
-        btnEscolha1.setBounds(10, 10, Escolha1Img.getIconWidth(), Escolha1Img.getIconHeight());
-        
-        btnEscolha1.addActionListener(new ActionListener() {
+        final JLabel btnEscolha1 = new JLabel(Escolha1Img);
+        btnEscolha1.setBounds(BORDA_INICIAL, ALTURA_BTN, Escolha1Img.getIconWidth(), Escolha1Img.getIconHeight());
+        btnEscolha1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                Estudante estudante = new Estudante("personagens/Personagem1.png");
+                iniciarJogo(estudante);
+            }
 
             @Override
-            public void actionPerformed(ActionEvent ev) {
-                iniciarJogo(1);
+            public void mouseEntered(MouseEvent e) {
+                btnEscolha1.setBorder(bordaRealcada);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnEscolha1.setBorder(border);
             }
         });
         
         ImageIcon escolha2Img = new ImageIcon(getClass().getClassLoader().getResource("resource/escolha/escolha2.png"));
-        JButton btnEscolha2 = new JButton(escolha2Img);
-        btnEscolha2.setBounds(350, 200, escolha2Img.getIconWidth(), escolha2Img.getIconHeight());
-        btnEscolha2.setBorder(BorderFactory.createEmptyBorder());
+        final JLabel btnEscolha2 = new JLabel(escolha2Img);
+        final int x = BORDA_INICIAL + Escolha1Img.getIconWidth() + ENTRE_ESPACOS;
+        btnEscolha2.setBounds(x, ALTURA_BTN, escolha2Img.getIconWidth(), escolha2Img.getIconHeight());
 
-        btnEscolha2.addActionListener(new ActionListener() {
+        btnEscolha2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                Estudante estudante = new Estudante("personagens/Personagem2.png");
+                iniciarJogo(estudante);
+            }
+            
+             @Override
+            public void mouseEntered(MouseEvent e) {
+                btnEscolha2.setBorder(bordaRealcada);
+            }
 
             @Override
-            public void actionPerformed(ActionEvent ev) {
-                
+            public void mouseExited(MouseEvent e) {
+                btnEscolha2.setBorder(border);
             }
         });
         
         ImageIcon imgEscolha3 = new ImageIcon(getClass().getClassLoader().getResource("resource/escolha/escolha3.png"));
-        JButton btEscolha3 = new JButton(imgEscolha3);
-        btEscolha3.setBounds(15, 80, imgEscolha3.getIconWidth(), imgEscolha3.getIconHeight());
-        btEscolha3.setBorder(BorderFactory.createEmptyBorder());
-        btEscolha3.addActionListener(new ActionListener() {
+        final JLabel btEscolha3 = new JLabel(imgEscolha3);
+        final int x2 = x + escolha2Img.getIconWidth() + ENTRE_ESPACOS;
+        btEscolha3.setBounds(x2, ALTURA_BTN, imgEscolha3.getIconWidth(), imgEscolha3.getIconHeight());
+        btEscolha3.addMouseListener(new MouseAdapter(){
 
             @Override
-            public void actionPerformed(ActionEvent ev) {
-                
+            public void mouseReleased(MouseEvent e) {
+                Estudante estudante = new Estudante("personagens/Personagem3.png");
+                iniciarJogo(estudante);
             }
+            
+             @Override
+            public void mouseEntered(MouseEvent e) {
+                btEscolha3.setBorder(bordaRealcada);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btEscolha3.setBorder(border);
+            }
+            
         });
 
         render.add(btnEscolha1);
@@ -100,7 +136,8 @@ public class Eleicoes {
         frame.setVisible(true);
     }
     
-    public void iniciarJogo(int fase){
+    
+    public void iniciarJogo(Estudante estudante){
         frame.setVisible(false);
         iniciar();
     }
