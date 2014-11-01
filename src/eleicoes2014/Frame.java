@@ -69,7 +69,7 @@ public class Frame extends JFrame {
     public void iniciar() {
 
         cenarios = this.createCenarios();
-        gerenciadorInimigo = new GerenciadorInimigos();
+        gerenciadorInimigo = new GerenciadorInimigos(12);
         iniciarFase();
         //criaInimigos();
     }

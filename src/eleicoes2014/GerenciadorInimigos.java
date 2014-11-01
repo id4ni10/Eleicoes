@@ -14,10 +14,14 @@ import java.util.Random;
  */
 public class GerenciadorInimigos {
 
+    private final int totalInimigos;
+    
     private boolean criar;
+    private int qtdInimigos;
 
-    public GerenciadorInimigos() {
+    public GerenciadorInimigos(int totalInimigos) {
         criar = true;
+        this.totalInimigos = totalInimigos;
     }
 
     public synchronized void criaInimigo(boolean criar) {
@@ -26,9 +30,10 @@ public class GerenciadorInimigos {
 
     public void criarInimigo() {
 
-        if (criar) {
+        if (criar || totalInimigos >= qtdInimigos) {
             Random r = new Random();
             new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
+            qtdInimigos ++;
         }
     }
 

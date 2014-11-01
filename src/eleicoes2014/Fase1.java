@@ -48,7 +48,6 @@ public class Fase1 extends JFrame {
     public static Fase1 getInstance() {
         if (instance == null) {
             instance = new Fase1();
-            //instance.iniciar();
         }
         return instance;
     }
@@ -58,7 +57,7 @@ public class Fase1 extends JFrame {
     }
 
     public void iniciar(String img) {
-        gerenciadorInimigo = new GerenciadorInimigos();
+        gerenciadorInimigo = new GerenciadorInimigos(12);
         
         System.out.println("Iniciando a fase: 1");
         cenario = new Cenario("cenario_game_elevador_noite.png", 1);
@@ -77,7 +76,6 @@ public class Fase1 extends JFrame {
         //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
 
         gerenciadorInimigo.criaInimigo(true);
-        //criaInimigos();
     }
 
 
