@@ -10,27 +10,26 @@ import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
 import game.itens.*;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Danilo
  */
-public class Frame extends JFrame {
+public class Fase2 extends JFrame {
 
     private JPanel[] options;
     private JPanelRender renderGame;
     private int arma = 1;
-    private static Frame instance;
+    private static Fase2 instance;
     private Cenario cenario;
     private Estudante estudante;
-    private int fase = 0;
-    private List<Cenario> cenarios;
     private GerenciadorInimigos gerenciadorInimigo;
 
-    private Frame() {
+    private Fase2() {
         //initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -38,26 +37,18 @@ public class Frame extends JFrame {
 
     public void fimFase() {
         System.out.println("Chamado Fim Fase");
-        fase += 1;
 
         //cenario.fimFase();
         cenario.setVisible(false);
         estudante.setVisible(false);
         gerenciadorInimigo.criaInimigo(false);
         GameController.getInstance().delItens();
-
-        if (fase == 3) {
-            GameController.getInstance().setFimJogo(true);
-        } else {
-            iniciarFase();
-        }
-
     }
 
-    public static Frame getInstance() {
+    public static Fase2 getInstance() {
         if (instance == null) {
-            instance = new Frame();
-            instance.iniciar();
+            instance = new Fase2();
+            //instance.iniciar();
         }
         return instance;
     }
@@ -66,17 +57,11 @@ public class Frame extends JFrame {
         return options;
     }
 
-    public void iniciar() {
-
-        cenarios = this.createCenarios();
+    public void iniciar(String img) {
         gerenciadorInimigo = new GerenciadorInimigos();
-        iniciarFase();
-        //criaInimigos();
-    }
-
-    public void iniciarFase() {
-        System.out.println("Iniciando a fase: " + fase);
-        cenario = cenarios.get(fase);
+        
+        System.out.println("Iniciando a fase: 2");
+        cenario = new Cenario("cidade_manha_estendido.png", 2);
 
         estudante = new Estudante("estudante_animado.gif");
 
@@ -92,8 +77,9 @@ public class Frame extends JFrame {
         //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
 
         gerenciadorInimigo.criaInimigo(true);
-
+        //criaInimigos();
     }
+
 
     public void criaInimigos() {
         new Thread(new Runnable() {
@@ -148,14 +134,6 @@ public class Frame extends JFrame {
         pnl.add(renderGame);
 
         setContentPane(pnl);
-    }
-
-    private List<Cenario> createCenarios() {
-        List<Cenario> cenarios = new ArrayList<>();
-        cenarios.add(new Cenario("cenario_game_elevador_noite.png", 1));
-        cenarios.add(new Cenario("cidade_manha_estendido.png", 2));
-        cenarios.add(new Cenario("Cristocompleto.png", 3));
-        return cenarios;
     }
 
     private class EvtTeclado implements EventosDoTeclado {
