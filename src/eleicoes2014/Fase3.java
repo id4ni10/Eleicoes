@@ -61,7 +61,7 @@ public class Fase3 extends JFrame {
         gerenciadorInimigo = new GerenciadorInimigos();
         
         System.out.println("Iniciando a fase: 3");
-        cenario = new Cenario("cidade_manha_estendido.png", 3);
+        cenario = new Cenario(img, 3);
 
         estudante = new Estudante("estudante_animado.gif");
 

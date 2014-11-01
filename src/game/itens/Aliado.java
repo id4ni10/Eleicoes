@@ -4,9 +4,7 @@
  */
 package game.itens;
 
-import eleicoes2014.Frame;
 import engine.itens.Item;
-import javax.swing.JLabel;
 
 /**
  *
@@ -55,7 +53,7 @@ public abstract class Aliado extends Item {
                 if (getBolasDePapel() > 0) {
                     setBolasDePapel(getBolasDePapel() - 1);
                     new BolaDePapel("papel_animado.gif", getX() + 40, getY() + 55).iniciarAnimacao();
-                    ((JLabel) Frame.getInstance().getOptions()[0].getComponents()[0]).setText("" + getBolasDePapel());
+                    //((JLabel) Frame.getInstance().getOptions()[0].getComponents()[0]).setText("" + getBolasDePapel());
                 } else {
                     System.out.println("acabaram os papeis");
                 }
@@ -64,7 +62,7 @@ public abstract class Aliado extends Item {
                 if (getTomates() > 0) {
                     setTomates(getTomates() - 1);
                     new Tomate("tomate_animado.gif", getX() + 40, getY() + 25).iniciarAnimacao();
-                    ((JLabel) Frame.getInstance().getOptions()[1].getComponents()[0]).setText("" + getTomates());
+                    //((JLabel) Frame.getInstance().getOptions()[1].getComponents()[0]).setText("" + getTomates());
                 } else {
                     System.out.println("acabaram os tomates");
                 }
@@ -73,7 +71,7 @@ public abstract class Aliado extends Item {
                 if (getDinamites() > 0) {
                     setDinamites(getDinamites() - 1);
                     new Dinamite("bomba_animada.gif", getX() + 40, getY() + 25).iniciarAnimacao();
-                    ((JLabel) Frame.getInstance().getOptions()[2].getComponents()[0]).setText("" + getDinamites());
+                    //((JLabel) Frame.getInstance().getOptions()[2].getComponents()[0]).setText("" + getDinamites());
                 } else {
                     System.out.println("acabaram as dinamites");
                 }

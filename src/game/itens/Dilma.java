@@ -22,7 +22,7 @@ public class Dilma extends Inimigo {
     @Override
     protected void morri() {
         //new Dinheiro("dinheiro.gif", getX(), getY()).iniciarAnimacao();
-        GameController.getInstance().setFimJogo(true);
+        eleicoes2014.Eleicoes.getInstance().mudaFase();
         //Frame.getInstance().fimFase();
                 
     }
