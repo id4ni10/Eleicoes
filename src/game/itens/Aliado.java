@@ -5,12 +5,18 @@
 package game.itens;
 
 import engine.itens.Item;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Danilo
  */
 public abstract class Aliado extends Item {
+    
+    private List<ActionListener> actions;
 
     public int getBolasDePapel() {
         return bolasDePapel;
@@ -41,10 +47,16 @@ public abstract class Aliado extends Item {
 
     public Aliado(String img, int x, int y) {
         super(img, x, y);
+        this.actions = new ArrayList<>();
     }
 
     public Aliado(String img) {
         super(img);
+        this.actions = new ArrayList<>();
+    }
+    
+    public void addActionListener(ActionListener actionListener){
+        this.actions.add(actionListener);
     }
 
     public void atirar(int arma) {
@@ -53,7 +65,6 @@ public abstract class Aliado extends Item {
                 if (getBolasDePapel() > 0) {
                     setBolasDePapel(getBolasDePapel() - 1);
                     new BolaDePapel("papel_animado.gif", getX() + 40, getY() + 55).iniciarAnimacao();
-                    //((JLabel) Frame.getInstance().getOptions()[0].getComponents()[0]).setText("" + getBolasDePapel());
                 } else {
                     System.out.println("acabaram os papeis");
                 }
@@ -62,7 +73,6 @@ public abstract class Aliado extends Item {
                 if (getTomates() > 0) {
                     setTomates(getTomates() - 1);
                     new Tomate("tomate_animado.gif", getX() + 40, getY() + 25).iniciarAnimacao();
-                    //((JLabel) Frame.getInstance().getOptions()[1].getComponents()[0]).setText("" + getTomates());
                 } else {
                     System.out.println("acabaram os tomates");
                 }
@@ -71,11 +81,14 @@ public abstract class Aliado extends Item {
                 if (getDinamites() > 0) {
                     setDinamites(getDinamites() - 1);
                     new Dinamite("bomba_animada.gif", getX() + 40, getY() + 25).iniciarAnimacao();
-                    //((JLabel) Frame.getInstance().getOptions()[2].getComponents()[0]).setText("" + getDinamites());
                 } else {
                     System.out.println("acabaram as dinamites");
                 }
                 break;
+        }
+        for (ActionListener actionListener : actions) {
+            ActionEvent action = new ActionEvent(arma, ActionEvent.ACTION_PERFORMED, null);
+            actionListener.actionPerformed(action);
         }
     }
 }

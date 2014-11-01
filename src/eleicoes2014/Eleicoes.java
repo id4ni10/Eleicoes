@@ -4,7 +4,6 @@
  */
 package eleicoes2014;
 
-import engine.core.GameController;
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
@@ -24,37 +23,15 @@ public class Eleicoes {
 
     private static Eleicoes instance;
     private JFrame frame;
-    private int fase = 1;
-    private Estudante estudante;
 
     private Eleicoes() {
     }
 
-    public void iniciar(int fase, Estudante estudante) {
-
-        if (this.estudante == null) {
-            this.estudante = estudante;
-        }
-
-        switch (fase) {
-            case 1:
-                Fase1 fase1 = Fase1.getInstance();
-                fase1.iniciar("cenario_game_elevador_noite.png", this.estudante);
-                fase1.setVisible(true);
-                break;
-            case 2:
-                Fase1.getInstance().setVisible(false);
-                Fase2 fase2 = Fase2.getInstance();
-                fase2.iniciar("cidade_manha_estendido.png", this.estudante);
-                fase2.setVisible(true);
-                break;
-            case 3:
-                Fase2.getInstance().setVisible(false);
-                Fase3 fase3 = Fase3.getInstance();
-                fase3.iniciar("cidade_manha_estendido.png", this.estudante);
-                fase3.setVisible(true);
-                break;
-        }
+    public void iniciarFase1(int tipoEstudante) {
+        Fase1 fase1 = Fase1.getInstance();
+        fase1.iniciar("cenario_game_elevador_noite.png", tipoEstudante);
+        fase1.setVisible(true);
+        frame.dispose();
     }
 
     public void configurar() {
@@ -67,7 +44,6 @@ public class Eleicoes {
         final Border border = BorderFactory.createEmptyBorder();
 
         frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setLayout(null);
 
@@ -94,8 +70,7 @@ public class Eleicoes {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                Estudante estudante = new Estudante("personagens/Personagem1.gif");
-                iniciarJogo(estudante);
+                iniciarFase1(1);
             }
 
             @Override
@@ -118,8 +93,7 @@ public class Eleicoes {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                Estudante estudante = new Estudante("personagens/Personagem2.gif");
-                iniciarJogo(estudante);
+                iniciarFase1(2);
             }
 
             @Override
@@ -142,8 +116,7 @@ public class Eleicoes {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                Estudante estudante = new Estudante("personagens/Personagem3.gif");
-                iniciarJogo(estudante);
+                iniciarFase1(3);
             }
 
             @Override
@@ -164,26 +137,11 @@ public class Eleicoes {
         frame.setVisible(true);
     }
 
-    public void iniciarJogo(Estudante estudante) {
-
-        frame.setVisible(false);
-        iniciar(fase, estudante);
-    }
-
     public static Eleicoes getInstance() {
         if (instance == null) {
             instance = new Eleicoes();
         }
         return instance;
-    }
-
-    public void mudaFase() {
-
-        frame.setVisible(false);
-
-        fase += 1;
-        GameController.getInstance().setFimJogo(true);
-        iniciar(fase, estudante);
     }
 
     private class EvtTeclado implements EventosDoTeclado {

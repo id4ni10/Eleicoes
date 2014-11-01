@@ -10,6 +10,8 @@ import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
 import game.itens.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,21 +29,13 @@ public class Fase1 extends JFrame {
     private static Fase1 instance;
     private Cenario cenario;
     private Estudante estudante;
+    private int tipoEstudante;
     private GerenciadorInimigos gerenciadorInimigo;
 
     private Fase1() {
         //initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public void fimFase() {
-        System.out.println("Chamado Fim Fase");
-
-        cenario.setVisible(false);
-        estudante.setVisible(false);
-        gerenciadorInimigo.criaInimigo(false);
-        GameController.getInstance().delItens();
     }
 
     public static Fase1 getInstance() {
@@ -55,9 +49,10 @@ public class Fase1 extends JFrame {
         return options;
     }
 
-    public void iniciar(String img, Estudante estudante) {
-        gerenciadorInimigo = new GerenciadorInimigos(12);
-        this.estudante = estudante;
+    public void iniciar(String img, int tipoEstudante) {
+        gerenciadorInimigo = new GerenciadorInimigos(2, new Marina("marina.gif", 600, 200));
+        this.tipoEstudante = tipoEstudante;
+        this.estudante = Estudante.criar(tipoEstudante);
 
         System.out.println("Iniciando a fase: 1");
         cenario = new Cenario(img, 1);
@@ -66,14 +61,9 @@ public class Fase1 extends JFrame {
 
         cenario.iniciarAnimacao();
 
-        estudante.iniciarAnimacao();
+        this.estudante.iniciarAnimacao();
 
-        new Dilma("dilma3.gif").iniciarAnimacao();
-        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
-        new Marina("marina.gif", 600, 200).iniciarAnimacao();
-        //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
-
-        gerenciadorInimigo.criaInimigo(true);
+        gerenciadorInimigo.criarInimigo();
     }
 
     public void criaInimigos() {
@@ -87,7 +77,6 @@ public class Fase1 extends JFrame {
                         gerenciadorInimigo.criarInimigo();
                         Thread.sleep(8000);
                     }
-                    
                     System.out.println("Terminei de criar os inimigos");
                 } catch (InterruptedException ex) {
                     System.out.println("Erro ao criar inimigo");
@@ -112,17 +101,20 @@ public class Fase1 extends JFrame {
         options[0] = new JPanel();
         options[0].setBounds(0, 150, 80, 50);
         options[0].setBorder(BorderFactory.createTitledBorder("B. de papel"));
-        options[0].add(new JLabel(estudante.getBolasDePapel() + ""));
+        final JLabel lblPapel = new JLabel(estudante.getBolasDePapel() + "");
+        options[0].add(lblPapel);
 
         options[1] = new JPanel();
         options[1].setBounds(0, 200, 80, 50);
         options[1].setBorder(BorderFactory.createTitledBorder("Tomates"));
-        options[1].add(new JLabel(estudante.getTomates() + ""));
+        final JLabel lblTomate = new JLabel(estudante.getTomates() + "");
+        options[1].add(lblTomate);
 
         options[2] = new JPanel();
         options[2].setBounds(0, 250, 80, 50);
         options[2].setBorder(BorderFactory.createTitledBorder("Bombas"));
-        options[2].add(new JLabel(estudante.getDinamites() + ""));
+        final JLabel lblBomba = new JLabel(estudante.getDinamites() + "");
+        options[2].add(lblBomba);
 
         JPanel pnl = new JPanel(null);
         pnl.add(options[0]);
@@ -130,7 +122,39 @@ public class Fase1 extends JFrame {
         pnl.add(options[2]);
         pnl.add(renderGame);
 
+        estudante.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int arma = (int) e.getSource();
+
+                switch (arma) {
+                    case 1:
+                        lblPapel.setText(estudante.getBolasDePapel() + "");
+                        break;
+                    case 2:
+                        lblTomate.setText(estudante.getTomates()+ "");
+                        break;
+                    case 3:
+                        lblBomba.setText(estudante.getDinamites() + "");
+                }
+            }
+
+        });
+
         setContentPane(pnl);
+    }
+
+    public void mudaFase() {
+        cenario.setVisible(false);
+        estudante.setVisible(false);
+
+        GameController.getInstance().delItens();
+
+        Fase2 fase2 = Fase2.getInstance();
+        fase2.iniciar("cidade_manha_estendido.png", new EvtTeclado(), tipoEstudante);
+        fase2.setVisible(true);
+        this.dispose();
+
     }
 
     private class EvtTeclado implements EventosDoTeclado {
@@ -153,14 +177,14 @@ public class Fase1 extends JFrame {
 
         @Override
         public void teclaDireita() {
-            if(estudante.getX() < 660){
+            if (estudante.getX() < 660) {
                 estudante.right();
             }
         }
 
         @Override
         public void teclaEsquerda() {
-            if(estudante.getX() > 0){
+            if (estudante.getX() > 0) {
                 estudante.left();
             }
         }
@@ -187,10 +211,12 @@ public class Fase1 extends JFrame {
 
         @Override
         public void antesPintar() {
+            gerenciadorInimigo.criaInimigo(false);
         }
 
         @Override
         public void depoisPintar() {
+            gerenciadorInimigo.criaInimigo(true);
         }
     }
 

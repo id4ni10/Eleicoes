@@ -4,6 +4,8 @@
  */
 package game.itens;
 
+import eleicoes2014.Fase1;
+
 /**
  *
  * @author Danilo
@@ -19,6 +21,6 @@ public class Marina extends Inimigo {
 
     @Override
     protected void morri() {
-        new Dinheiro("dinheiro.gif", getX(), getY()).iniciarAnimacao();
+        Fase1.getInstance().mudaFase();
     }
 }

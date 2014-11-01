@@ -26,6 +26,7 @@ public class Fase2 extends JFrame {
     private int arma = 1;
     private static Fase2 instance;
     private Cenario cenario;
+    private int tipoEstudante;
     private Estudante estudante;
     private GerenciadorInimigos gerenciadorInimigo;
 
@@ -33,16 +34,6 @@ public class Fase2 extends JFrame {
         //initComponents();
         this.setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public void fimFase() {
-        System.out.println("Chamado Fim Fase");
-
-        //cenario.fimFase();
-        cenario.setVisible(false);
-        estudante.setVisible(false);
-        gerenciadorInimigo.criaInimigo(false);
-        GameController.getInstance().delItens();
     }
 
     public static Fase2 getInstance() {
@@ -57,27 +48,21 @@ public class Fase2 extends JFrame {
         return options;
     }
 
-    public void iniciar(String img, Estudante estudante) {
-        gerenciadorInimigo = new GerenciadorInimigos(15);
+    public void iniciar(String img,EventosDoTeclado evtTeclado, int tipoEstudante) {
+        gerenciadorInimigo = new GerenciadorInimigos(15, new Aecio("aecio.gif", 700, 250));
 
         System.out.println("Iniciando a fase: 2");
         cenario = new Cenario(img, 2);
-        this.estudante = estudante;
-        //estudante = new Estudante("estudante_animado.gif");
+        this.tipoEstudante = tipoEstudante;
+        this.estudante = Estudante.criar(tipoEstudante);
 
-        initComponents();
+        initComponents(evtTeclado);
 
         cenario.iniciarAnimacao();
 
         estudante.iniciarAnimacao();
 
-        new Dilma("dilma3.gif").iniciarAnimacao();
-        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
-        new Marina("marina.gif", 600, 200).iniciarAnimacao();
-        //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
-
         gerenciadorInimigo.criaInimigo(true);
-        //criaInimigos();
     }
 
     public void criaInimigos() {
@@ -90,6 +75,7 @@ public class Fase2 extends JFrame {
                     while (!GameController.getInstance().fimjogo) {
                         gerenciadorInimigo.criarInimigo();
                         Thread.sleep(8000);
+                        GameController.getInstance().delItens();
                     }
                 } catch (InterruptedException ex) {
                     System.out.println("Erro ao criar inimigo");
@@ -103,11 +89,11 @@ public class Fase2 extends JFrame {
         return renderGame;
     }
 
-    public final void initComponents() {
+    public final void initComponents(EventosDoTeclado evtTeclado) {
 
         options = new JPanel[3];
 
-        renderGame = new JPanelRender(this, new EvtTeclado(), new EvtRender());
+        renderGame = new JPanelRender(this, evtTeclado, new EvtRender());
         renderGame.setBorder(BorderFactory.createLineBorder(Color.red));
         renderGame.setBounds(80, 0, 750, 550);
 
@@ -135,64 +121,6 @@ public class Fase2 extends JFrame {
         setContentPane(pnl);
     }
 
-    private class EvtTeclado implements EventosDoTeclado {
-
-        @Override
-        public void teclaPress(int keycode) {
-            switch (keycode) {
-
-                case 50:
-                    arma = 2;
-                    break;
-                case 51:
-                    arma = 3;
-                    break;
-                case 49:
-                    arma = 1;
-                    break;
-            }
-        }
-
-        @Override
-        public void teclaDireita() {
-            estudante.right();
-        }
-
-        @Override
-        public void teclaEsquerda() {
-            estudante.left();
-        }
-
-        @Override
-        public void teclaCima() {
-            System.out.println(estudante.getY());
-            if (estudante.getY() > 210) {
-                estudante.up();
-            }
-
-        }
-
-        @Override
-        public void teclaBaixo() {
-            System.out.println(estudante.getY());
-            if (estudante.getY() < 410) {
-                estudante.down();
-            }
-        }
-
-        @Override
-        public void teclaEspaco() {
-            estudante.atirar(arma);
-        }
-
-        @Override
-        public void antesPintar() {
-        }
-
-        @Override
-        public void depoisPintar() {
-        }
-    }
 
     private class EvtRender implements EventosDoRender {
 

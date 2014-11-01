@@ -5,6 +5,7 @@
  */
 package eleicoes2014;
 
+import game.itens.Inimigo;
 import game.itens.Suplente;
 import java.util.Random;
 
@@ -18,10 +19,17 @@ public class GerenciadorInimigos {
     
     private boolean criar;
     private int qtdInimigos;
+    private final Inimigo chefao;
 
-    public GerenciadorInimigos(int totalInimigos) {
+    /**
+     *
+     * @param totalInimigos
+     * @param chefao
+     */
+    public GerenciadorInimigos(int totalInimigos, Inimigo chefao) {
         criar = true;
         this.totalInimigos = totalInimigos;
+        this.chefao = chefao;
     }
 
     public synchronized void criaInimigo(boolean criar) {
@@ -35,6 +43,10 @@ public class GerenciadorInimigos {
             Random r = new Random();
             new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
             qtdInimigos ++;
+        }
+        
+        if(totalInimigos == qtdInimigos){
+            chefao.iniciarAnimacao();
         }
     }
 

@@ -56,4 +56,5 @@ public abstract class Inimigo extends Item {
     }
 
     protected abstract void morri();
+
 }

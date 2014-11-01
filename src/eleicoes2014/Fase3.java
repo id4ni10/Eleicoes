@@ -58,26 +58,19 @@ public class Fase3 extends JFrame {
     }
 
     public void iniciar(String img, Estudante estudante) {
-        gerenciadorInimigo = new GerenciadorInimigos(18);
+        gerenciadorInimigo = new GerenciadorInimigos(18, new Dilma("dilma3.gif"));
 
         System.out.println("Iniciando a fase: 3");
         cenario = new Cenario(img, 3);
         this.estudante = estudante;
-        //estudante = new Estudante("estudante_animado.gif");
 
         initComponents();
 
         cenario.iniciarAnimacao();
 
         estudante.iniciarAnimacao();
-
-        new Dilma("dilma3.gif").iniciarAnimacao();
-        new Aecio("aecio.gif", 700, 250).iniciarAnimacao();
-        new Marina("marina.gif", 600, 200).iniciarAnimacao();
-        //new Suplente("suplente.gif", 900, 275).iniciarAnimacao();
-
+        
         gerenciadorInimigo.criaInimigo(true);
-        //criaInimigos();
     }
 
     public void criaInimigos() {

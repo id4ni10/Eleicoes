@@ -27,4 +27,15 @@ public class Estudante extends Aliado {
             setTomates(getTomates() + 1);
         }
     }
+    
+    public static Estudante criar(int tipoEstudante){
+        if(tipoEstudante == 1){
+            return new Estudante("personagens/Personagem1.gif");
+        } else if(tipoEstudante == 2){
+            return new Estudante("personagens/Personagem2.gif");
+        } else {
+            return new Estudante("personagens/Personagem3.gif");
+        }
+    }
+
 }

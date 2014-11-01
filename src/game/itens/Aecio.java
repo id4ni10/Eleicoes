@@ -21,4 +21,5 @@ public class Aecio extends Inimigo {
     protected void morri() {
         new Dinheiro("dinheiro.gif", getX(), getY()).iniciarAnimacao();
     }
+
 }
