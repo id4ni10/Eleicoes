@@ -13,6 +13,7 @@ import engine.itens.Item;
 public class Cenario extends Item {
 
     public int direcao = 0;
+   
 
     public Cenario(String img, int deslocamento) {
         super(img, 0, 0);

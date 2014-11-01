@@ -6,7 +6,6 @@ package eleicoes2014;
 
 import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
-import engine.itens.ImagemItem;
 import engine.itens.Item;
 import engine.renders.JPanelRender;
 import java.awt.Color;
@@ -55,10 +54,7 @@ public class Eleicoes {
         JButton btnEstudante = new JButton(img);
         btnEstudante.setBorder(BorderFactory.createEmptyBorder());
         
-        //preciso posicionar estes botões ao centro.
-        //
         btnEstudante.setBounds(336, 243, img.getIconWidth(), img.getIconHeight());
-        //
         
         btnEstudante.addActionListener(new ActionListener() {
 

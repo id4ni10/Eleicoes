@@ -41,7 +41,6 @@ public class Frame extends JFrame {
         System.out.println("Chamado Fim Fase");
         fase += 1;
 
-        cenario.fimFase();
         cenario.setVisible(false);
         estudante.setVisible(false);
         gerenciadorInimigo.criaInimigo(false);
@@ -179,17 +178,20 @@ public class Frame extends JFrame {
 
         @Override
         public void teclaDireita() {
-            estudante.right();
+            if (estudante.getX() < 660) {
+                estudante.right();
+            }
         }
 
         @Override
         public void teclaEsquerda() {
-            estudante.left();
+            if (estudante.getX() > 0) {
+                estudante.left();
+            }
         }
 
         @Override
         public void teclaCima() {
-            System.out.println(estudante.getY());
             if (estudante.getY() > 210) {
                 estudante.up();
             }
@@ -198,7 +200,6 @@ public class Frame extends JFrame {
 
         @Override
         public void teclaBaixo() {
-            System.out.println(estudante.getY());
             if (estudante.getY() < 410) {
                 estudante.down();
             }
