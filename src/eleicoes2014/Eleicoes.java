@@ -8,7 +8,6 @@ import engine.eventos.EventosDoRender;
 import engine.eventos.EventosDoTeclado;
 import engine.renders.JPanelRender;
 import game.itens.Cenario;
-import game.itens.Estudante;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

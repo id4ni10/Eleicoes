@@ -16,7 +16,7 @@ public class Marina extends Inimigo {
         super(img, x, y);
         setHP(30);
         setNome("Marina");
-        setDeslocamento(2);
+        setDeslocamento(5);
     }
 
     @Override

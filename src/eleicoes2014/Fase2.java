@@ -60,9 +60,10 @@ public class Fase2 extends JFrame {
 
         cenario.iniciarAnimacao();
 
-        estudante.iniciarAnimacao();
+        this.estudante.iniciarAnimacao();
 
-        gerenciadorInimigo.criaInimigo(true);
+        //gerenciadorInimigo.criaInimigo(true);
+        criaInimigos();
     }
 
     public void criaInimigos() {
@@ -72,10 +73,10 @@ public class Fase2 extends JFrame {
             public void run() {
                 try {
 
-                    while (!GameController.getInstance().fimjogo) {
+                    while (!gerenciadorInimigo.isTerminou()) {
                         gerenciadorInimigo.criarInimigo();
                         Thread.sleep(8000);
-                        GameController.getInstance().delItens();
+                        //GameController.getInstance().delItens();
                     }
                 } catch (InterruptedException ex) {
                     System.out.println("Erro ao criar inimigo");

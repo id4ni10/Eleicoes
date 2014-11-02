@@ -16,7 +16,6 @@ import java.util.Random;
 public class GerenciadorInimigos {
 
     private final int totalInimigos;
-    
     private boolean criar;
     private int qtdInimigos;
     private final Inimigo chefao;
@@ -37,21 +36,22 @@ public class GerenciadorInimigos {
     }
 
     public void criarInimigo() {
-        System.out.println("Criando o inimigo: "+ qtdInimigos + " Total: "+ totalInimigos);
-
-        if (criar) {
-            Random r = new Random();
-            new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
-            qtdInimigos ++;
-        }
+        System.out.println("Criando o inimigo: " + qtdInimigos + " Total: " + totalInimigos);
         
-        if(totalInimigos == qtdInimigos){
-            chefao.iniciarAnimacao();
+        Random r = new Random();
+        if (criar && qtdInimigos < totalInimigos) {
+            new Suplente("suplente.gif", r.nextInt(100) + 800, r.nextInt(150) + 200).iniciarAnimacao();
+            qtdInimigos++;
+        }
+
+        if (totalInimigos == qtdInimigos) {
+            chefao.setX(r.nextInt(100) + 800);
+            chefao.setY(r.nextInt(150) + 200);
+            chefao.iniciarAnimacao();           
         }
     }
 
     boolean isTerminou() {
-        return totalInimigos >= qtdInimigos;
+        return totalInimigos == qtdInimigos;
     }
-
 }

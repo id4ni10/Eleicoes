@@ -14,7 +14,7 @@ public class Suplente extends Inimigo {
         super(img, x, y);
         setHP(30);
         setNome("Suplente");
-        setDeslocamento(2);
+        setDeslocamento(4);
     }
 
     @Override

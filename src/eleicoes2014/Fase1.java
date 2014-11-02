@@ -62,8 +62,8 @@ public class Fase1 extends JFrame {
         cenario.iniciarAnimacao();
 
         this.estudante.iniciarAnimacao();
-
-        gerenciadorInimigo.criarInimigo();
+        criaInimigos();
+        //gerenciadorInimigo.criarInimigo();
     }
 
     public void criaInimigos() {
@@ -73,7 +73,7 @@ public class Fase1 extends JFrame {
             public void run() {
                 try {
 
-                    while (!GameController.getInstance().fimjogo || !gerenciadorInimigo.isTerminou()) {
+                    while (!gerenciadorInimigo.isTerminou()) {
                         gerenciadorInimigo.criarInimigo();
                         Thread.sleep(8000);
                     }
@@ -123,6 +123,7 @@ public class Fase1 extends JFrame {
         pnl.add(renderGame);
 
         estudante.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 int arma = (int) e.getSource();
@@ -132,13 +133,12 @@ public class Fase1 extends JFrame {
                         lblPapel.setText(estudante.getBolasDePapel() + "");
                         break;
                     case 2:
-                        lblTomate.setText(estudante.getTomates()+ "");
+                        lblTomate.setText(estudante.getTomates() + "");
                         break;
                     case 3:
                         lblBomba.setText(estudante.getDinamites() + "");
                 }
             }
-
         });
 
         setContentPane(pnl);
